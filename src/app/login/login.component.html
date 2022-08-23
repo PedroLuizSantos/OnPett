@@ -1,0 +1,11 @@
+<form [formGroup]="form" (ngSubmit)="login()">
+  <h1>Bem Vindo a OnPett</h1>
+  <mat-form-field>
+      <input matInput type="text" placeholder="Nome de Usuário" formControlName="username">
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput type="text" type="password" placeholder="Insira sua Senha" formControlName="password">
+  </mat-form-field>
+  <button mat-button type="submit">Entrar</button>
+  <a routerLink="/registro">Criar novo usuario</a>
+</form>
