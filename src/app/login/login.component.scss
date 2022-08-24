@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: row;
   justify-content: stretch;
-
   width: 100vw;
   height: 100vh;
-
   background: linear-gradient(90deg, blue, purple);
+  //background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  //background: url("/assets/OnPett.png");
+
+
 }
 
 form {
@@ -16,6 +18,5 @@ form {
   align-content: center;
   justify-content: center;
   width: 400px;
-
   background: linear-gradient(90deg, rgb(160, 160, 255), rgb(255, 138, 255));
 }
