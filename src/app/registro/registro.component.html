@@ -1,23 +1,23 @@
 <form [formGroup]="form" (ngSubmit)="register()">
-  <h1>Novo Usuário</h1>
-  <mat-form-field>
-      <input matInput type="text" placeholder="Nome de Usuário" formControlName="username">
-  </mat-form-field>
-  <mat-form-field>
-      <input matInput type="text" type="password" placeholder="Senha" formControlName="password">
-  </mat-form-field>
+    <h1>Novo Usuário</h1>
+    <mat-form-field>
+        <input matInput type="text" placeholder="Nome de Usuário" formControlName="username">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="text" type="password" placeholder="Senha" formControlName="password">
+    </mat-form-field>
 
-  <mat-form-field>
-      <input matInput type="text" type="text" placeholder="Nome Completo" formControlName="firstName">
-  </mat-form-field>
+    <mat-form-field>
+        <input matInput type="text" type="text" placeholder="Nome Completo" formControlName="firstName">
+    </mat-form-field>
 
-  <mat-form-field>
-      <input matInput type="text" type="text" placeholder="E-mail" formControlName="email">
-  </mat-form-field>
+    <mat-form-field>
+        <input matInput type="text" type="text" placeholder="E-mail" formControlName="email">
+    </mat-form-field>
 
-  <mat-form-field>
-      <input matInput type="tel" placeholder="Celular" formControlName="phone" mask='(00) 0000-00000'>
-  </mat-form-field>
-  <button mat-button type="submit">Criar Usuario</button>
-  <a routerLink="/login">Já possuo Usuário</a>
+    <mat-form-field>
+        <input matInput type="tel" placeholder="Celular" formControlName="phone" mask='(00) 0000-00000'>
+    </mat-form-field>
+    <button mat-button type="submit">Criar Usuario</button>
+    <a routerLink="/login">Já possuo Usuário</a>
 </form>

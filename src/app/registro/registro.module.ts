@@ -8,7 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { RegistroRoutingModule } from './registro-routing.module';
 import { NgxMaskModule } from 'ngx-mask';
 
-
 @NgModule({
   declarations: [
     RegistroComponent

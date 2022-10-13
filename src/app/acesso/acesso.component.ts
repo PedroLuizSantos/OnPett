@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../services/services/user.service';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 
 @Component({
@@ -11,20 +12,21 @@ import { UserService } from '../services/services/user.service';
 export class AcessoComponent implements OnInit {
 
   constructor(
-    private router: Router,
     public service: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
   }
 
-  sair(){
-    this.router.navigate(['/login'])
+  openDialog() {
+    const dialogRef = this.dialog.open(EditarUsuarioComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
-  home(){
-    this.router.navigate(['/acesso'])
-  }
-  user(){
-    this.router.navigate(['/cliente'])
+
+  sair() {
+    this.service.logout();
   }
 }

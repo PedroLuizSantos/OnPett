@@ -16,15 +16,19 @@ export class UserService {
 
   async login(username: string, password: string) {
     const endpoint = `https://petstore.swagger.io/v2/user/login?username=${username}&password=${password}`;
-    const acesso = await this.http.get<IMessage>(endpoint);
-    if (acesso) {
-      this.usuarioAcesso = await this.http.get<IUser>(endpoint).toPromise();
+    const acesso = await this.http.get<IMessage>(endpoint).toPromise();
+    if (acesso?.code == 200) {
+      await this.getUser(username);
       this.router.navigate(['/acesso']);
     }
-    // if (acesso.code === 200) {
-    //   this.router.navigate(['/acesso']);
-    //   await this.getUser(username);
-    //   }
+  }
+
+  async logout() {
+    const endpoint = `https://petstore.swagger.io/v2/user/logout`;
+    const acesso = await this.http.get<IMessage>(endpoint).toPromise();
+    if (acesso?.code == 200) {
+      this.router.navigate(['/login'])
+    }
   }
 
   async register(newUser: IUser) {
@@ -32,8 +36,22 @@ export class UserService {
     const message = await this.http.post<IMessage>(endpoint, newUser).toPromise();
     if (message?.code === 200 && !isNaN(Number(message.message))) {
       newUser.id = Number(message.message);
+      alert("Cadastro Efetuado com Sucesso!");
+      this.router.navigate(['/login']);
     }
     return newUser;
+  }
+
+  async UpdateUser(user: IUser) {
+    const endpoint = `https://petstore.swagger.io/v2/user/${user.username}`;
+    const message = await this.http.put<IMessage>(endpoint, user).toPromise();
+  }
+
+  async getUser(username: string) {
+    const endpoint2 = `https://petstore.swagger.io/v2/user/${username}`;
+    this.usuarioAcesso = await this.http.get<IUser>(endpoint2).toPromise();
+    if (this.usuarioAcesso && this.usuarioAcesso.username)
+      localStorage.setItem('user', this.usuarioAcesso.username)
   }
 
 

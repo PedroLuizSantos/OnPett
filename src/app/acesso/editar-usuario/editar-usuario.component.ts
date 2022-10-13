@@ -1,17 +1,21 @@
-import { UserService } from './../services/services/user.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '../models/models/user';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { UserService } from 'src/app/services/services/user.service';
 
 @Component({
-  selector: 'app-registro',
-  templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.scss']
+  selector: 'app-editar-usuario',
+  templateUrl: './editar-usuario.component.html',
+  styleUrls: ['./editar-usuario.component.scss']
 })
-export class RegistroComponent implements OnInit {
+export class EditarUsuarioComponent implements OnInit {
 
-  usuario?: IUser;
-  mensagem?: any;
+  constructor(
+    private FormBuilder: FormBuilder,
+    private service: UserService,
+  ) { }
+
+  ngOnInit(): void {
+  }
 
   form: FormGroup = this.FormBuilder.group({
     username: ['', [Validators.required]],
@@ -21,24 +25,15 @@ export class RegistroComponent implements OnInit {
     phone: ['', [Validators.required]],
   });
 
-  constructor(
-    private FormBuilder: FormBuilder,
-    private service: UserService,
-
-  ) { }
-
-  ngOnInit(): void {
-  }
-
-  async register() {
-    if (this.form.invalid) return;
-    await this.service.register({
+  async update() {
+    await this.service.UpdateUser({
       username: this.form.controls['username'].value,
       firstName: this.form.controls['firstName'].value,
       email: this.form.controls['email'].value,
       password: this.form.controls['password'].value,
       phone: this.form.controls['phone'].value,
     });
+
 
   }
 
