@@ -14,11 +14,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMaskModule } from 'ngx-mask';
+import { CadastrarPetComponent } from './cadastrar-pet/cadastrar-pet.component';
 
 @NgModule({
   declarations: [
     AcessoComponent,
-    EditarUsuarioComponent
+    EditarUsuarioComponent,
+    CadastrarPetComponent
   ],
   imports: [
     CommonModule,
