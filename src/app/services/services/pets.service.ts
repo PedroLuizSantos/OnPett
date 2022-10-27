@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { Pet } from 'src/app/models/models/pet';
 
 @Injectable({
@@ -11,16 +11,25 @@ export class PetService {
     private http: HttpClient,
   ) { }
 
-  async addPet(newPet: Pet) {
+  async addPet(newPet: Pet, image?: File) {
     const endpoint = `https://petstore.swagger.io/v2/pet`;
-    return this.http.post<Pet[]>(endpoint, newPet).toPromise();
-
+    const pet_saved = await firstValueFrom(this.http.post<Pet>(endpoint, newPet));
+    if (pet_saved?.id && image) {
+      const data: FormData = new FormData();
+      data.append('file', image);
+      const endpoint = `https://petstore.swagger.io/v2/pet/${pet_saved.id}/uploadImage`;
+      const request = new HttpRequest('POST', endpoint, data, {
+        reportProgress: true,
+        responseType: 'text'
+      });
+      await lastValueFrom(this.http.request(request));
+    }
+    return pet_saved;
   }
 
   async deletePet(pet: Pet){
     const endpoint = `https://petstore.swagger.io/v2/pet/${pet.id}`;
     return firstValueFrom(this.http.delete<Pet>(endpoint));
-
   }
 
   async findByStatus(status: 'available' | 'pending' | 'sold') {
