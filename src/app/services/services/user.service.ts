@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/models/models/user';
 import { IMessage } from 'src/app/models/models/message';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UserService {
 
   async login(username: string, password: string) {
     const endpoint = `https://petstore.swagger.io/v2/user/login?username=${username}&password=${password}`;
-    const acesso = await this.http.get<IMessage>(endpoint).toPromise();
+    const acesso = await firstValueFrom(this.http.get<IMessage>(endpoint));
     if (acesso?.code == 200) {
       await this.getUser(username);
       this.router.navigate(['/acesso']);
@@ -25,7 +26,7 @@ export class UserService {
 
   async logout() {
     const endpoint = `https://petstore.swagger.io/v2/user/logout`;
-    const acesso = await this.http.get<IMessage>(endpoint).toPromise();
+    const acesso = await firstValueFrom(this.http.get<IMessage>(endpoint));
     if (acesso?.code == 200) {
       this.router.navigate(['/login'])
     }
