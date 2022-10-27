@@ -24,8 +24,13 @@ export class CadastrarPetComponent implements OnInit {
 
   async salvarPet() {
     await this.service.addPet({
+      id: Math.floor(Math.random() * 100),
       name: this.form.controls['name'].value,
-    });
+    }, this.selectedFile);
+  }
+  private selectedFile?: File;
+  async changeFile(event: Event) {
+    this.selectedFile = (event.target as HTMLInputElement).files?.item(0) || undefined;
   }
 
 }
